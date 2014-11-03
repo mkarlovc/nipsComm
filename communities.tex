@@ -170,17 +170,17 @@ naive bayes      & 0.6787   & 0.8197      & 0.4972      & 0.6773    & 0.8197 & 0
 \end{table}
 
 \begin{table}[h]
-\caption{Results of the classification using five different classifiers}
-\label{classification}
+\caption{Results of the regression using five different classifiers}
+\label{regression}
 \begin{center}
 \begin{tabular}{@{}llllllll@{}}
-                 & accuracy & sensitivity & specificity & precision & recall & f-measure & gmean \\
+                 & RMSE & MAE & MedAD \\
                  \hline \\
-decision tree    & 0.6401   & 0.7554      & 0.4917      & 0.6567    & 0.7554 & 0.7026     & 0.6094 \\
-knn              & 0.6401   & 0.7768      & 0.4641      & 0.6511    & 0.7768 & 0.7084     & 0.6004 \\
-lindiscrim       & 0.6981   & 0.9056      & 0.4309      & 0.6720    & 0.9056 & 0.7715     & 0.6247 \\
-quaddiscrim      & 0.7005   & 0.8541      & 0.5028      & 0.6886    & 0.8541 & 0.7625     & 0.6553 \\
-naive bayes      & 0.6787   & 0.8197      & 0.4972      & 0.6773    & 0.8197 & 0.7417     & 0.6384 \\  
+decision tree	& 1.5475    & 0.8335    & 0.2222 \\
+knn             & 1.3028    & 0.7597    & 0.3326  \\
+lindiscrim      & 1.3028    & 0.7597    & 0.3326 \\
+quaddiscrim     & 1.5487    & 0.8586    & 0.3385 \\
+naive bayes     & 1.6594    & 0.7585   	& 0 \\  
 \end{tabular}
 \end{center}
 \end{table}
@@ -191,7 +191,7 @@ task, where we were predicting
 the number of communities the given community will split into (here
 $1$ typically means that the community will not change).
 The models was evaluated in the following way. We are given a series
-of sets $S_t$, where $t = 1,\ldots, 43$, where the sets detail the
+of sets $S_t$, where $t = 0,\ldots, 43$, where the sets detail the
 evolution of the community structure over $43$ years. Each set $S_t$
 contains examples $\{x_i, y_i, r_i)\}$, where $x_i$ is a feature
 vector that describes the community at time $t$, $y_i$ is a class
