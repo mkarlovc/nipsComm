@@ -87,30 +87,46 @@ Detect communities in several timestamps, connect them in neighbouring timestamp
 
 \section{Introduction}
 
-In this work we propose an approach for detecting, visualizing and modelling community evolution of dynamic networks using textual features and graph structure. The approach is implemented in QMiner – open source data analytics platform for processing streams of structured and unstructured data \footnote{http://qminer.ijs.si/}. QMiner integrates machine learning algorithms with network analysis based on SNAP library \cite{snap}.
 
-Mapping between communities and clusters.
+In this work we propose an approach for detecting, visualizing and
+modelling community evolution of dynamic networks using textual
+features and graph structure. The approach is implemented in QMiner -
+an open source data analytics platform for processing streams of
+structured and unstructured data \footnote{http://qminer.ijs.si/}.
+QMiner integrates machine learning algorithms with network analysis
+based on the SNAP library \cite{snap}.
 
-Building community evolution model.
 
-Predict splits and merges.
+Communities in social or collaboration networks are often defined as
+groups of nodes with many links inside the groups but a few links
+between them. Finding communities is tantamount to looking for a
+partition of the nodes that maximizes a quality function which
+captures the idea of dense groups communities \cite{aynaud}. An
+example of a broadly used quality function is modularity
+\cite{newman2003}. However, communities are not static -- they evolve
+over time, decaying, emerging, splitting and merging. Here we consider
+such community dynamics, and further enrich feature set beyond the
+network topology to include textual data which is available for the
+primary dataset we consider -- an academic collaboration network. In particular, we use
+the network topology define the communities and then use additional
+information to find maps to describe how the communities evolve and
+ultimately build a community evolution model where we predict the
+splitting and merging of communities.
 
-Examine homophony and heterogeneity.
 
-Use hub nodes (page rank, centrality, etc.) members to track communities/clusters.
-
-K-means clustering (e.g. num. of communities in t for K)
-
-Keywords extraction for community description
-
-Communities are often defined using the network topology as groups of nodes with many links inside the groups but a few links between them . Finding communities is looking for a partition of the nodes that maximizes a quality function which captures the idea of dense groups communities \cite{aynaud}. One such broadly used quality function is modularity \cite{newman2003}.
+In addition to testing the accuracy of our models, we also use the
+attached textual information to improve the visualization of the
+communities. Using keyword extraction, we can visualize not only the
+content of each community but also as see how communitiies eolve
+through the changing associated keywords. Our approach is highly
+generic and tunable. We first present the relevant previous work,
+followed by a description of our approach and finally, we present the
+results of experimentation on the dataset.
 
 \section{Related work}
-
 Standard methods for studying communities in evolving networks usually fall into three groups: (1) Static algorithms which study snapshots independently  and connect the resulting communities, (2) using temporal information directly in community detection methods and (3) using incremental/online algorithms \cite{aynaud}. In this work, we apply the first approach of independently computing communities, following by solving community matching/tracking problem to obtain the community evolution. The benefit of  the static approach is that in this context, the problemh as been  well-studied, with many different algorithms developed (see Clauset-Newman-Moore\cite{clauset-newman-moore}, ...). The main drawback is  instability \cite{aynaud2010}. When the underlying algorithms are  non-deterministic, a small modification of the input network may lead to large changes in the resulting community partition.
  
-Identifying the relationships between the neighbouring partitions is often referred to as the matching or tracking problem. It is a crucial step in using static algorithms on dynamic networks as it help us identify patterns in the communities. One approach, 
-MONIC \cite{spiliopoulou}, is a general methodology for modelling and tracking external and internal cluster transitions, that include: survival, split into multiple clusters, absorption, disappearing and emergence of a new cluster. In line with the set-theoretic approach of  the MONIC methodology, in \cite{gliwa2013} authors determine the  matching of clusters by calculating a modified Jaccard coefficient, with an additional constraint on difference in cluster sizes. Other approaches of solving the matching problem include using key nodes in the clusters \cite{wang} and community detection algorithms for the matching problem\cite{palla}.
+Identifying the relationships between the neighbouring partitions is often referred to as the matching or tracking problem. It is a crucial step in using static algorithms on dynamic networks as it help us identify patterns in the communities. One approach, MONIC \cite{spiliopoulou}, is a general methodology for modelling and tracking external and internal cluster transitions, that include: survival, split into multiple clusters, absorption, disappearing and emergence of a new cluster. In line with the set-theoretic approach of  the MONIC methodology, in \cite{gliwa2013} authors determine the  matching of clusters by calculating a modified Jaccard coefficient, with an additional constraint on difference in cluster sizes. Other approaches of solving the matching problem include using key nodes in the clusters \cite{wang} and community detection algorithms for the matching problem\cite{palla}.
 
 Topic evolution graph to trace topic transitions \cite{mei2005}.
 Predicting community evolution problem is tackled in \cite{gliwa2013}. Predictions are based on the previous events in group lifetime described by group size, cohesion, leadership and density.
@@ -161,9 +177,9 @@ Alongside features based on text, feature set contains the five following featur
                  & accuracy & sensitivity & specificity & precision & recall & f-measure & gmean \\
                  \hline \\
 decision tree    & 0.6401   & 0.7554      & 0.4917      & 0.6567    & 0.7554 & 0.7026     & 0.6094 \\
-knn              & 0.6401   & 0.7768      & 0.4641      & 0.6511    & 0.7768 & 0.7084     & 0.6004 \\
-lindiscrim       & 0.6981   & 0.9056      & 0.4309      & 0.6720    & 0.9056 & 0.7715     & 0.6247 \\
-quaddiscrim      & 0.7005   & 0.8541      & 0.5028      & 0.6886    & 0.8541 & 0.7625     & 0.6553 \\
+KNN              & 0.6401   & 0.7768      & 0.4641      & 0.6511    & 0.7768 & 0.7084     & 0.6004 \\
+lindiscrim       & 0.6981   & \textbf{0.9056}      & 0.4309      & 0.6720    & 0.9056 & 0.7715     & 0.6247 \\
+quaddiscrim      & \textbf{0.7005}   & 0.8541      & 0.5028      & 0.6886    & 0.8541 & 0.7625     & 0.6553 \\
 naive bayes      & 0.6787   & 0.8197      & 0.4972      & 0.6773    & 0.8197 & 0.7417     & 0.6384 \\  
 \end{tabular}
 \end{center}
@@ -177,7 +193,7 @@ naive bayes      & 0.6787   & 0.8197      & 0.4972      & 0.6773    & 0.8197 & 0
                  & RMSE & MAE & MedAD \\
                  \hline \\
 decision tree	& 1.5475    & 0.8335    & 0.2222 \\
-knn             & 1.3028    & 0.7597    & 0.3326  \\
+KNN             & 1.3028    & 0.7597    & 0.3326  \\
 lindiscrim      & 1.3028    & 0.7597    & 0.3326 \\
 quaddiscrim     & 1.5487    & 0.8586    & 0.3385 \\
 naive bayes     & 1.6594    & 0.7585   	& 0 \\  
@@ -187,8 +203,7 @@ naive bayes     & 1.6594    & 0.7585   	& 0 \\
 
 We evaluated the models on two tasks: a classification task where we
 were predicting whether the community will split, and a regression
-task, where we were predicting
-the number of communities the given community will split into (here
+task, where we were predicting the number of communities the given community will split into (here
 $1$ typically means that the community will not change).
 The models was evaluated in the following way. We are given a series
 of sets $S_t$, where $t = 0,\ldots, 43$, where the sets detail the
