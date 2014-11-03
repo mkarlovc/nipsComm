@@ -1,0 +1,199 @@
+@misc{xlike,
+  howpublished = {\url{http://www.xlike.org/}}
+},
+@misc{snap,
+  author       = {Jure Leskovec and Rok Sosi\v{c}},
+  title        = {{SNAP}: A general purpose network analysis and graph mining library in {C++}},
+  howpublished = {\url{http://snap.stanford.edu/snap}},
+  month        = jun,
+  year         = 2014
+},
+@article{clauset-newman-moore,
+  title = {Finding community structure in very large networks},
+  author = {Aaron Clauset and M. E. J. Newman and Christopher Moore},
+  journal = {Physical Review E.},
+  volume = 70,
+  number = 6,
+  year = 2004
+},
+@incollection{aynaud,
+year={2013},
+isbn={978-1-4614-6728-1},
+booktitle={Dynamics On and Of Complex Networks, Volume 2},
+series={Modeling and Simulation in Science, Engineering and Technology},
+editor={Mukherjee, Animesh and Choudhury, Monojit and Peruani, Fernando and Ganguly, Niloy and Mitra, Bivas},
+doi={10.1007/978-1-4614-6729-8_9},
+title={Communities in Evolving Networks: Definitions, Detection, and Analysis Techniques},
+url={http://dx.doi.org/10.1007/978-1-4614-6729-8_9},
+publisher={Springer New York},
+author={Aynaud, Thomas and Fleury, Eric and Guillaume, Jean-Loup and Wang, Qinna},
+pages={159-200},
+language={English}
+},
+@article{hopcroft,
+  abstract = {We are interested in tracking changes in large-scale data by periodically creating an agglomerative clustering and examining the evolution of clusters (communities) over time. We examine a large real-world data set: the NEC CiteSeer database, a linked network of >250,000 papers. Tracking changes over time requires a clustering algorithm that produces clusters stable under small perturbations of the input data. However, small perturbations of the CiteSeer data lead to significant changes to most of the clusters. One reason for this is that the order in which papers within communities are combined is somewhat arbitrary. However, certain subsets of papers, called natural communities, correspond to real structure in the CiteSeer database and thus appear in any clustering. By identifying the subset of clusters that remain stable under multiple clustering runs, we get the set of natural communities that we can track over time. We demonstrate that such natural communities allow us to identify emerging communities and track temporal changes in the underlying structure of our network data.},
+  added-at = {2006-06-16T10:34:37.000+0200},
+  author = {Hopcroft, John and Khan, Omar and Kulis, Brian and Selman, Bart},
+  biburl = {http://www.bibsonomy.org/bibtex/28dc7fa75df5cef4413a1766d530c300f/ldietz},
+  chapter = 1,
+  citeulike-article-id = {370723},
+  comment = {DATA: Citeseer
+
+TASK: find trends in communities, find new evolving communities
+
+METHOD: they repeatedly use a "standard centroid-based agglomerative clustering technique based on cosine similarity" at different points in the timeline to find a set of communities that occur in the previous clustering (based on a stability measure). these are called natural communities.
+
+They use the cosine of the "reference vectors" as the similarity measure.  They also find "(future) co-citations" interesting, but this will need some timeline gap which is not applicable, since they want to reveal evolving communities as soon as possible.
+
+
+
+---
+
+"
+Natural Communities. We define natural communities as follows.
+We fix an input data perturbation value of 5%. Then we produce
+a series of subgraphs G1, G2, . . . , Gn of the original network G
+(the CiteSeer citation graph) where each Gi is the subgraph of
+G induced by a random subset of 95% of the core vertices of G.
+Our clustering algorithm then produces a set of clustering trees
+T{T1, T2, . . . , Tn}. We choose the first tree T1 as our base tree.
+We now define a natural community or cluster as follows.
+Definition 3.1. A community C in base tree T1 is natural iff in a
+fraction f of the clustering trees in T the best-match of C has a
+value greater than p, a predefined threshold.
+The definition has two parameters: f, the fraction of trees out
+of n trees total, and p, a lower-bound for the best match.
+Depending on what values one chooses for these parameters, one
+obtains more or less well defined natural communities. In
+practice, we set these values sufficiently high to select clusters
+that are clearly different from the average cluster in the tree.
+"},
+  interhash = {b9c04b5e203b149dfeaa65703b4d8eaa},
+  intrahash = {8dc7fa75df5cef4413a1766d530c300f},
+  journal = {Proceedings of the National Academy of Sciences},
+  keywords = {socialnets community},
+  month = {April},
+  pages = {5249--5253},
+  priority = {0},
+  timestamp = {2006-06-16T10:34:37.000+0200},
+  title = {Tracking evolving communities in large linked networks},
+  url = {http://www.pnas.org/cgi/content/full/101/suppl_1/5249},
+  volume = 101,
+  year = 2004
+},
+@inproceedings{spiliopoulou,
+ author = {Spiliopoulou, Myra and Ntoutsi, Irene and Theodoridis, Yannis and Schult, Rene},
+ title = {MONIC: Modeling and Monitoring Cluster Transitions},
+ booktitle = {Proceedings of the 12th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+ series = {KDD '06},
+ year = {2006},
+ isbn = {1-59593-339-5},
+ location = {Philadelphia, PA, USA},
+ pages = {706--711},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/1150402.1150491},
+ doi = {10.1145/1150402.1150491},
+ acmid = {1150491},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {cluster change detection, cluster transitions, clusters, data streams, temporal analysis},
+},
+@misc{wang,
+    author = {Yi Wang and Bin Wu and Nan Du},
+    title = {Community Evolution of Social Network: Feature, Algorithm and Model},
+    year = {804}
+},
+@ARTICLE{palla,
+    author = {Gergely Palla and Albert-lászló Barabási and Tamás Vicsek and Budapest Hungary},
+    title = {Quantifying social group evolution},
+    journal = {Nature},
+    year = {2007},
+    volume = {446},
+    pages = {2007}
+},
+@article{newman2003,
+  added-at = {2012-10-16T17:39:35.000+0200},
+  author = {Newman, M. E. J. and Girvan, M.},
+  biburl = {http://www.bibsonomy.org/bibtex/21dbc30a1818aa74973f387162e485443/kibanov},
+  description = {Phys. Rev. E 69, 026113 (2004): Finding and evaluating community structure in networks},
+  doi = {10.1103/PhysRevE.69.026113},
+  interhash = {b9145040e35ccb4d2a0ce18105e64ff4},
+  intrahash = {1dbc30a1818aa74973f387162e485443},
+  journal = {Phys. Rev. E},
+  keywords = {community social},
+  month = feb,
+  number = 2,
+  numpages = {15},
+  pages = 026113,
+  publisher = {American Physical Society},
+  timestamp = {2012-10-16T17:39:35.000+0200},
+  title = {Finding and evaluating community structure in networks},
+  url = {http://link.aps.org/doi/10.1103/PhysRevE.69.026113},
+  volume = 69,
+  year = 2004
+},
+@inproceedings{mei2005,
+ author = {Mei, Qiaozhu and Zhai, ChengXiang},
+ title = {Discovering Evolutionary Theme Patterns from Text: An Exploration of Temporal Text Mining},
+ booktitle = {Proceedings of the Eleventh ACM SIGKDD International Conference on Knowledge Discovery in Data Mining},
+ series = {KDD '05},
+ year = {2005},
+ isbn = {1-59593-135-X},
+ location = {Chicago, Illinois, USA},
+ pages = {198--207},
+ numpages = {10},
+ url = {http://doi.acm.org/10.1145/1081870.1081895},
+ doi = {10.1145/1081870.1081895},
+ acmid = {1081895},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {clustering, evolutionary theme patterns, temporal text mining, theme threads},
+},
+@inproceedings{aynaud2010,
+  TITLE = {{Static community detection algorithms for evolving networks}},
+  AUTHOR = {Aynaud, Thomas and Guillaume, Jean-Loup},
+  URL = {https://hal.inria.fr/inria-00492058},
+  BOOKTITLE = {{WiOpt'10: Modeling and Optimization in Mobile, Ad Hoc, and Wireless Networks}},
+  ADDRESS = {Avignon, France},
+  PAGES = {508-514},
+  YEAR = {2010},
+  KEYWORDS = {complex networks ; evolving communities ; stability ; tracking ; blogs},
+  HAL_ID = {inria-00492058},
+  HAL_VERSION = {v1},
+},
+@article{gliwa2013,
+  author    = {Bogdan Gliwa and
+               Piotr Br{\'{o}}dka and
+               Anna Zygmunt and
+               Stanislaw Saganowski and
+               Przemyslaw Kazienko and
+               Jaroslaw Kozlak},
+  title     = {Different Approaches to Community Evolution Prediction in Blogosphere},
+  journal   = {CoRR},
+  year      = {2013},
+  volume    = {abs/1306.3517},
+  url       = {http://arxiv.org/abs/1306.3517},
+  timestamp = {Thu, 30 Oct 2014 19:40:44 +0100},
+  biburl    = {http://dblp.uni-trier.de/rec/bib/journals/corr/GliwaBZSKK13},
+  bibsource = {dblp computer science bibliography, http://dblp.org}
+},
+@book{wasserman1994,
+  added-at = {2013-07-02T14:50:25.000+0200},
+  author = {Wasserman, Stanley and Faust, Katherine},
+  biburl = {http://www.bibsonomy.org/bibtex/27b1c3ba3ba7651ea77e67c4bdaf6ae5f/mjobst},
+  interhash = {387e48dafbb99962c628d30bfe9aa527},
+  intrahash = {7b1c3ba3ba7651ea77e67c4bdaf6ae5f},
+  keywords = {},
+  publisher = {Cambridge university press},
+  title = {Social network analysis: Methods and applications},
+  url = {http://scholar.google.com/scholar.bib?q=info:gET6m8icitMJ:scholar.google.com/&output=citation&hl=en&as_sdt=0,5&as_vis=1&ct=citation&cd=0},
+  volume = 8,
+  year = 1994
+},
+@ARTICLE{freeman1978,
+    author = {Linton C. Freeman},
+    title = {Centrality in social networks conceptual clarification},
+    journal = {Social Networks},
+    year = {1978},
+    pages = {215}
+}
