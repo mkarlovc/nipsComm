@@ -152,8 +152,6 @@ When building our community evolution model, we use features extracted from the 
 Alongside features based on text, feature set contains the five following features derived from graph structure: (3) {\bf centralization} \cite{freeman1978}, (4) {\bf density}\cite{wasserman1994}, (5) {\bf cohesion}, (6) {\bf community age} and (7) {\bf community size}. To measure centralization, density and cohesion, a graph is constructed for each community. This is done by selecting community members and their connections as subset of nodes and edges from the snapshot in time point at which a community appears in. Centralization gives information on how much the connectivity of the graph depends on the most central node. It is calculated as the normalized  sum of difference in degree of the most central node and all other nodes. Centralization is the largest with the star structure. Density gives the number of edges in relation to the maximal possible number of edges in the graph. Cohesion measures connectivity of the community in relation to connections of the community with the rest of the graph. Community age and size are derived from the community evolution directed graph which is the result of community matching process. Age is the number of consecutive time points a community exists in the graph, while size is the number of members in the community.
 
 \section{Experimental results}
-Build community evolution model.
-Use the model for prediction on different datasets (co-authoring, companies, ...). Evaluation
 
 \begin{table}[h]
 \caption{Results of the classification using five different classifiers}
