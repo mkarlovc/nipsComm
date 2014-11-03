@@ -169,6 +169,8 @@ Alongside features based on text, feature set contains the five following featur
 
 \section{Experimental results}
 
+For the purpose of evaluation, we used co-authoring network of Slovenia researchers from the field of biotechnology from 1970 to 2013. We used temporal resolution of 1 year and created 44 snapshots of evolving network. Clauset-Newman-Moore algorithm was applied for community detection, while K-Means algorithm was used for clustering and extracting text based features.
+
 \begin{table}[h]
 \caption{Results of the classification using five different classifiers}
 \label{classification}
@@ -178,8 +180,8 @@ Alongside features based on text, feature set contains the five following featur
                  \hline \\
 decision tree    & 0.6401   & 0.7554      & 0.4917      & 0.6567    & 0.7554 & 0.7026     & 0.6094 \\
 KNN              & 0.6401   & 0.7768      & 0.4641      & 0.6511    & 0.7768 & 0.7084     & 0.6004 \\
-lindiscrim       & 0.6981   & \textbf{0.9056}      & 0.4309      & 0.6720    & 0.9056 & 0.7715     & 0.6247 \\
-quaddiscrim      & \textbf{0.7005}   & 0.8541      & 0.5028      & 0.6886    & 0.8541 & 0.7625     & 0.6553 \\
+lindiscrim       & 0.6981   & \textbf{0.9056}      & 0.4309      & 0.6720    & \textbf{0.9056} & \textbf{0.7715}     & 0.6247 \\
+quaddiscrim      & \textbf{0.7005}   & 0.8541      & \textbf{0.5028}      & \textbf{0.6886}    & 0.8541 & 0.7625     & \textbf{0.6553} \\
 naive bayes      & 0.6787   & 0.8197      & 0.4972      & 0.6773    & 0.8197 & 0.7417     & 0.6384 \\  
 \end{tabular}
 \end{center}
@@ -201,28 +203,9 @@ naive bayes     & 1.6594    & 0.7585   	& 0 \\
 \end{center}
 \end{table}
 
-We evaluated the models on two tasks: a classification task where we
-were predicting whether the community will split, and a regression
-task, where we were predicting the number of communities the given community will split into (here
-$1$ typically means that the community will not change).
-The models was evaluated in the following way. We are given a series
-of sets $S_t$, where $t = 0,\ldots, 43$, where the sets detail the
-evolution of the community structure over $43$ years. Each set $S_t$
-contains examples $\{x_i, y_i, r_i)\}$, where $x_i$ is a feature
-vector that describes the community at time $t$, $y_i$ is a class
-label that encodes whether a community $i$ will split in time $t+1$,
-and $r_i$ corresponds to the number of communities it point to in
-$t+1$.
+We evaluated the models on two tasks: a classification task where we were predicting whether the community will continue to exist in the next time point, and a regression task, where we were predicting the number of communities the given community will connect to (here $1$ typically means that the community will not change). The models was evaluated in the following way. We are given a series of sets $S_t$, where $t = 0,\ldots, 43$, where the sets detail the evolution of the community structure over $43$ years. Each set $S_t$ contains examples $\{x_i, y_i, r_i)\}$, where $x_i$ is a feature vector that describes the community at time $t$, $y_i$ is a class label that encodes whether a community $i$ will split in time $t+1$, and $r_i$ corresponds to the number of communities it point to in $t+1$.
 
-\textbf{Train/Test} Given a task (classification/regression) and a
-model, we performed evaluation in the following way. In order to
-evaluate the performance at time $t$, we aggregate
-all data sets $Train_t = \bigcup_{j=1}^{t-1}{S_j}$, train a model on
-$Train_t$ and test the model on the instances of $S_t$. This means
-that we measured a series of models (an evolving model, not a single
-model). The testing indices ranged from $t = 24$ to $t = 43$ (which
-corresponds roughly half of the dataset) in order to assure that the
-training sets were sufficiently large.
+\textbf{Train/Test} Given a task (classification/regression) and a model, we performed evaluation in the following way. In order to evaluate the performance at time $t$, we aggregate all data sets $Train_t = \bigcup_{j=1}^{t-1}{S_j}$, train a model on $Train_t$ and test the model on the instances of $S_t$. This means that we measured a series of models (an evolving model, not a single model). The testing indices ranged from $t = 24$ to $t = 43$ (which corresponds roughly half of the dataset) in order to assure that the training sets were sufficiently large.
 
 \textbf{Classification:}
 We evaluated the following classification algorithms\footnote{We used
