@@ -117,7 +117,7 @@ splitting and merging of communities.
 In addition to testing the accuracy of our models, we also use the
 attached textual information to improve the visualization of the
 communities. Using keyword extraction, we can visualize not only the
-content of each community but also as see how communitiies eolve
+content of each community but also as see how communities evolve
 through the changing associated keywords. Our approach is highly
 generic and tunable. We first present the relevant previous work,
 followed by a description of our approach and finally, we present the
@@ -126,10 +126,7 @@ results of experimentation on the dataset.
 \section{Related work}
 Standard methods for studying communities in evolving networks usually fall into three groups: (1) Static algorithms which study snapshots independently  and connect the resulting communities, (2) using temporal information directly in community detection methods and (3) using incremental/online algorithms \cite{aynaud}. In this work, we apply the first approach of independently computing communities, following by solving community matching/tracking problem to obtain the community evolution. The benefit of  the static approach is that in this context, the problemh as been  well-studied, with many different algorithms developed (see Clauset-Newman-Moore\cite{clauset-newman-moore}, ...). The main drawback is  instability \cite{aynaud2010}. When the underlying algorithms are  non-deterministic, a small modification of the input network may lead to large changes in the resulting community partition.
  
-Identifying the relationships between the neighbouring partitions is often referred to as the matching or tracking problem. It is a crucial step in using static algorithms on dynamic networks as it help us identify patterns in the communities. One approach, MONIC \cite{spiliopoulou}, is a general methodology for modelling and tracking external and internal cluster transitions, that include: survival, split into multiple clusters, absorption, disappearing and emergence of a new cluster. In line with the set-theoretic approach of  the MONIC methodology, in \cite{gliwa2013} authors determine the  matching of clusters by calculating a modified Jaccard coefficient, with an additional constraint on difference in cluster sizes. Other approaches of solving the matching problem include using key nodes in the clusters \cite{wang} and community detection algorithms for the matching problem\cite{palla}.
-
-Topic evolution graph to trace topic transitions \cite{mei2005}.
-Predicting community evolution problem is tackled in \cite{gliwa2013}. Predictions are based on the previous events in group lifetime described by group size, cohesion, leadership and density.
+Identifying the relationships between the neighbouring partitions is often referred to as the matching or tracking problem. It is a crucial step in using static algorithms on dynamic networks as it help us identify patterns in the communities. One approach, MONIC \cite{spiliopoulou}, is a general methodology for modelling and tracking external and internal cluster transitions, that include: survival, split into multiple clusters, absorption, disappearing and emergence of a new cluster. In line with the set-theoretic approach of  the MONIC methodology, in \cite{gliwa2013} authors determine the  matching of clusters by calculating a modified Jaccard coefficient, with an additional constraint on difference in cluster sizes. Other approaches of solving the matching problem include using key nodes in the clusters \cite{wang} and community detection algorithms for the matching problem\cite{palla}. Our work includes text analysis in evolving networks, what relates to tracing topic transitions using evolution graphs in \cite{mei2005}. Predicting future states of communities in evolving networks is done in \cite{gliwa2013}, by using Predictions are based on the previous events described by group size, cohesion, leadership and density.
 
 \section{Approach}
 Our approach is generic,  given a dynamic graph, each snapshot is analyzed using any statistical community detection algorithm. The detected communities are then matched and a directed graph representing community evolution is constructed. In our context, the input graph has text associated with each node. We extract keywords from the text 
@@ -153,14 +150,13 @@ If there are a pair of communities $A$ and $B$ such that $alpha > \tau_{alpha}$ 
 Keyword extraction process is done by first uniting textual descriptions of nodes of a community into documents. Since the members of the communities change over time, a separate document is generated for each occurrence of a community.The next step is to create bag-of-words feature space representation of the collection of documents, where each document is a vector of n-grams. Bag-of-words representations of documents are created by the standard approach involving tokenization, stop-words removal, stemming using English Porter stemmer, tf-idf weighting and normalization. The final step of the keyword extraction process is to select a number of n-grams with highest tf-idf scores from each documents.  In our experiments, we usually choose 10, since we found this is sufficient for interpreting communities. These n-grams are the keywords that represent the content of communities.
 
 \subsection{Visualization}
-\begin{figure}\label{architecture}
+An important part of this work is visualization of the community evolution. This enables quick inspection of interesting events in graph evolution, such as sudden splits and merges of communities. For example, a community with stable evolution with few communities and rear splits and merges, may at some point explode with many splits and the emergence of new communities. Such an atypical change in the structure could easily be identified with our visualization. The evolution of communities is visualized as a directed graph, with nodes representing communities and arcs showing the relationships between communities in consecutive time points. Arcs are drawn whenever two neighbouring communities share common members. The size of the nodes corresponds to the number of member of communities, while width of the arcs fits the number of shared members and is relative to the diameter of the nodes. Colour is used to indicate whether two connected neighbouring nodes represent the same community. The extracted keywords are assigned to the nodes in the directed graph, improve the interpretation of the evolution by giving context and information on the content of communities. An example of a community evolution visualization is given in Figure 2. For example, we can see how community $C$ merges with a part of community $B$ into a new community $D$.
+\begin{figure}\label{evolution}
    	\begin{center}
    	\includegraphics[width=1\textwidth]{evo.png}
    	\end{center}
-   	\caption{A section of community evoulution visualization of a collaboration network of a researcher from medical sciences}
+   	\caption{A section of community evoulution visualization of a collaboration network of a researcher chemistry field of research}
 \end{figure}
-An important part of this work is visualization of the community evolution. This enables quick inspection of  interesting events in graph evolution, such as sudden splits and merges of communities. For example, a community with stable evolution with few communities and rear splits and merges, may at some point explode with many splits and the emergence of new communities. Such  an atypical change in the structure  could easily be identified with our  visualization. The evolution of communities is visualized as a directed graph, with nodes representing communities and arcs showing the relationships between communities in consecutive time points. Arcs are drawn whenever two neighbouring communities share common members. The size of the nodes corresponds to the number of member of communities, while width of the arcs fits the number of shared members and is relative to the diameter of the nodes. Colour is used to indicate whether two connected neighbouring nodes represent the same community. The extracted keywords are assigned to the nodes in the directed graph, improve the interpretation of the evolution by giving context and information on the content of communities.
-
  
 \subsection{Feature extraction}
 When building our community evolution model, we use features extracted from the text assigned to communities, as well as features based on  the graph structure. The text-based features are constructed by performing text-based clustering of the community members for each time $t$ and mapping between communities and clusters. At each time,  all the members of a  community are represented using the bag-of-words feature vector representation. This process is similar to keywords extraction step, but rather than grouping the members by community, each member is represented as a separate BOW vector.  We then cluster the members based on text. If the clustering method requires a parameter for specifying the number of clusters (e.g. K-means), the number of communities at time point $t$ is used. After clustering, mapping between each community and cluster is performed. Each community gets a vector with number of elements corresponding to the number of clusters it maps to. The values of the vector are proportions of elements from a community mapped to a cluster. This vector is the basis for deriving two features: (1) {\bf the number of significant clusters it maps to} and (2) { \bf the uniformity of the mapping}. The first feature counts the number of mappings greater than a threshold restricted to the interval $[0, 1]$. In the experiments we used $K^{-1}$, where K is  the number of communities at time point $t$. The second feature, uniformity of the mapping distribution is computed using Shannon's entropy formula.
@@ -169,7 +165,7 @@ Alongside features based on text, feature set contains the five following featur
 
 \section{Experimental results}
 
-For the purpose of evaluation, we used co-authoring network of Slovenia researchers from the field of biotechnology from 1970 to 2013. We used temporal resolution of 1 year and created 44 snapshots of evolving network. Clauset-Newman-Moore algorithm was applied for community detection, while K-Means algorithm was used for clustering and extracting text based features.
+For the purpose of evaluation, we used co-authoring network of Slovenia researchers from the field of biotechnology from 1970 to 2013. We used temporal resolution of 1 year to create 44 snapshots of the evolving network. Clauset-Newman-Moore algorithm was applied for community detection, while K-Means algorithm was used for clustering and extracting text based features. We evaluated the models on two tasks: a classification task where we were predicting whether the community will continue to exist in the next time point, and a regression task, where we were predicting the number of communities the given community will connect to (here $1$ typically means that the community will not change). The models was evaluated in the following way. We are given a series of sets $S_t$, where $t = 0,\ldots, 43$, where the sets detail the evolution of the community structure over $43$ years. Each set $S_t$ contains examples $\{x_i, y_i, r_i)\}$, where $x_i$ is a feature vector that describes the community at time $t$, $y_i$ is a class label that encodes whether a community $i$ will split in time $t+1$, and $r_i$ corresponds to the number of communities it point to in $t+1$.
 
 \begin{table}[h]
 \caption{Results of the classification using five different classifiers}
@@ -187,14 +183,16 @@ naive bayes      & 0.6787   & 0.8197      & 0.4972      & 0.6773    & 0.8197 & 0
 \end{center}
 \end{table}
 
+
+
 \begin{table}[h]
 \caption{Results of the regression using five different classifiers}
 \label{regression}
 \begin{center}
 \begin{tabular}{@{}llllllll@{}}
-                 & RMSE & MAE & MedAD \\
+                 & RMSE & MAD & MedAD \\
                  \hline \\
-decision tree	& 1.5475    & 0.8335    & 0.2222 \\
+regression tree	& 1.5475    & 0.8335    & 0.2222 \\
 KNN             & 1.3028    & 0.7597    & 0.3326  \\
 lindiscrim      & 1.3028    & 0.7597    & 0.3326 \\
 quaddiscrim     & 1.5487    & 0.8586    & 0.3385 \\
@@ -203,11 +201,7 @@ naive bayes     & 1.6594    & 0.7585   	& 0 \\
 \end{center}
 \end{table}
 
-We evaluated the models on two tasks: a classification task where we were predicting whether the community will continue to exist in the next time point, and a regression task, where we were predicting the number of communities the given community will connect to (here $1$ typically means that the community will not change). The models was evaluated in the following way. We are given a series of sets $S_t$, where $t = 0,\ldots, 43$, where the sets detail the evolution of the community structure over $43$ years. Each set $S_t$ contains examples $\{x_i, y_i, r_i)\}$, where $x_i$ is a feature vector that describes the community at time $t$, $y_i$ is a class label that encodes whether a community $i$ will split in time $t+1$, and $r_i$ corresponds to the number of communities it point to in $t+1$.
-
-\textbf{Train/Test} Given a task (classification/regression) and a model, we performed evaluation in the following way. In order to evaluate the performance at time $t$, we aggregate all data sets $Train_t = \bigcup_{j=1}^{t-1}{S_j}$, train a model on $Train_t$ and test the model on the instances of $S_t$. This means that we measured a series of models (an evolving model, not a single model). The testing indices ranged from $t = 24$ to $t = 43$ (which corresponds roughly half of the dataset) in order to assure that the training sets were sufficiently large.
-
-\textbf{Classification:}
+\textbf{Train/Test} Given a task (classification/regression) and a model, we performed evaluation in the following way. In order to evaluate the performance at time $t$, we aggregate all data sets $Train_t = \bigcup_{j=1}^{t-1}{S_j}$, train a model on $Train_t$ and test the model on the instances of $S_t$. This means that we measured a series of models (an evolving model, not a single model). The testing indices ranged from $t = 24$ to $t = 43$ (which corresponds roughly half of the dataset) in order to assure that the training sets were sufficiently large. \textbf{Classification:}
 We evaluated the following classification algorithms\footnote{We used
 the default parameters in Matlab2013a}: classification trees,
 k-nearest neighbors, linear discriminant analysis, quadratic
@@ -215,9 +209,7 @@ discriminant analysis and Naive Bayes using the normal distribution to
 fit the data.
 The classification performance measures include: accuracy,
 sensitivity, specificity, precision, recall, f-measure and geometric
-mean \emph{gmean}.
-
-\textbf{Regression:} We evaluated the following regression
+mean \emph{gmean}. \textbf{Regression:} We evaluated the following regression
 algorithms\footnote{We used the default parameters in Matlab2013a}:
 regression tree, linear model (least squares regression), generalized
 linear model, a model that predicts the mean and a model that predicts
@@ -227,6 +219,7 @@ squared error \emph{RMSE}, mean absolute deviation \emph{MAD}, median
 absolute deviation \emph{MedAD}.
 
 \section{Conclusion and discussion}
+This paper gives a complete approach for detecting, visualizing and modelling evolution of communities...
 
 \subsubsection*{Acknowledgments}
    The authors gratefully acknowledge that the funding for this work was provided by the project X-LIKE (ICT-257790-STREP)\cite{xlike}.
